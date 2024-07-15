@@ -26,9 +26,14 @@ export const Map = () => {
   const size = (val: number) =>
     val / mPerCell * cellSize;
 
-  const circles: { r: number; x: number; y: number; color: string; }[] = [
-    { r: 500, x: 625, y: 625, color: 'red' },
-    { r: 300, x: 520, y: 720, color: 'blue' },
+  const circles: { r: number; x: number; y: number; }[] = [
+    { r: 500, x: 625, y: 625 },
+    { r: 300, x: 520, y: 720 },
+  ];
+
+  const planes: { x: number; y: number; }[] = [
+    { x: 530, y: 675 },
+    { x: 585, y: 685 },
   ];
 
   return (
@@ -60,22 +65,30 @@ export const Map = () => {
         >
           <defs>
             <pattern id='grid' width={cellSize} height={cellSize} patternUnits='userSpaceOnUse' x={-cam[0]} y={-cam[1]}>
-              <path d={`M ${cellSize} 0 L 0 0 0 ${cellSize}`} fill='none' stroke='gray' strokeWidth={0.5} />
+              <path d={`M ${cellSize} 0 L 0 0 0 ${cellSize}`} strokeWidth={0.5} className='stroke-gray-500 fill-none' />
             </pattern>
           </defs>
 
           <rect width='100%' height='100%' fill='url(#grid)' />
 
-          {circles.map(({ r, x, y, color }, index) => (
+          {circles.map(({ r, x, y }, index) => (
             <circle
               key={index}
               r={size(r) / 2}
               cx={pos(x, cam[0])}
               cy={pos(y, cam[1])}
-              fill={color}
-              fillOpacity={0.3}
-              strokeWidth={2}
-              stroke={color}
+              fillOpacity={0.5}
+              className='stroke-1 stroke-red-700 fill-red-600'
+            />
+          ))}
+
+          {planes.map(({ x, y }, index) => (
+            <circle
+              key={index}
+              r={zoom / cellSize * 5e-4 * mPerCell}
+              cx={pos(x, cam[0])}
+              cy={pos(y, cam[1])}
+              className='stroke-1 fill-blue-500'
             />
           ))}
         </svg>
