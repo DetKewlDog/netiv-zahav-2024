@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { Canvas } from './components/canvas';
+import { Map } from './components/map';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <Canvas />
+  <Map />
 );
